@@ -21,12 +21,17 @@
 
 using namespace std;
 int n;
-void printv(int v);
-void fillv(int v);
-void copyv(int v);
-void selection(int v);
-void insertion(int v);
-void bubble(int v);
+void printv(int *v);
+void fillv(int *v);
+void copyv(int *v);
+void selection(int *v);
+void insertion(int *v);
+void bubble(int *v);
+void shellSort(int *v);
+void quickSort(int *v);
+void arrange(int pivot, int *v, int*vv);
+int findelem(int x, int *v);
+void arrange(int pivot, int *v, int*vv);
 
 // Imprime la matriz
 void printv(int *v){
@@ -43,6 +48,82 @@ void copyv(int *vv, int *v){
     }
 }
 
+// Da la posicion de un elemento en un vector
+int findelem(int x, int *v){
+    int pos;
+    for(int i = 0; i < n; i++){
+        if(x == v[i]){
+            pos = i;
+            break;
+        }
+    }
+    return pos;
+}
+
+// Pone los elementos menores al pivote a la izquierda y los mayores a la derecha
+void arrange(int pivot, int *v, int*vv){
+    int pos = 0;
+    for(int i = 0; i < n; i++){
+        if(v[i] <= pivot){
+            vv[pos] = v[i];
+            pos++;
+        }
+    }
+    for(int i = 0; i < n; i++){
+        if(v[i] > pivot){
+            vv[pos] = v[i];
+            pos++;
+        }
+    }
+}
+
+// Ordena el vector por quick sort
+void quickSort(int *v){
+    int vquick[n], vvquick[n];
+    arrange(v[n - 1], v, vquick);
+
+    int posPiv = findelem(v[n - 1], vquick);
+
+    for(int i = posPiv - 1; i > -1; i--){
+        copyv(vvquick, vquick);
+        arrange(vquick[i], vvquick, vquick);
+    }
+    for(int i = n - 1; i > posPiv; i--){
+        copyv(vvquick, vquick);
+        arrange(vquick[i], vvquick, vquick);
+        printv(vquick);
+    }
+    printv(vquick);
+}
+
+
+// Ordena el vector por shell sort
+void shellSort(int *v){
+    int vshell[n], piv = n / 2;
+    copyv(vshell, v);
+    while(piv != 1){
+        for(int i = 0; i < n; i++){
+            if(i + piv < n){
+                if(vshell[i] > vshell[i + piv]){
+                    swap(vshell[i], vshell[i + piv]);
+                }
+            }
+        }
+        piv /= 2;
+    }
+    bool flag = true;
+    while(flag){
+        flag = false;
+        for(int i = 0; i < n - 1; i++){
+            if(vshell[i] > vshell[i + piv]){
+                swap(vshell[i], vshell[i + piv]);
+                flag = true;
+            }
+        }
+    }
+    printv(vshell);
+}
+
 // Ordena el vector por burbuja
 void bubble(int *v){
     int vbub[n];
@@ -50,9 +131,7 @@ void bubble(int *v){
     for(int i = n; i > 0; i--){
         for(int j = 0; j < i - 1; j++){
             if(vbub[j] > vbub[j + 1]){
-                int temp = vbub[j];
-                vbub[j] = vbub[j + 1];
-                vbub[j + 1] = temp;
+                swap(vbub[j], vbub[j + 1]);
             }
         }
     }
@@ -66,9 +145,7 @@ void insertion(int *v){
     for(int i = 0; i < n; i++){
         for(int j = 0; j < n - 1; j++){
             while(vins[j] > vins[j + 1]){
-                int temp = vins[j];
-                vins[j] = vins[j + 1];
-                vins[j + 1] = temp;
+                swap(vins[j], vins[j + 1]);
             }
         }
     }
@@ -87,9 +164,7 @@ void selection(int *v){
                 pos = j;
             }
         }
-        int temp = vsel[i];
-        vsel[i] = smallest;
-        vsel[pos] = temp;
+        swap(vsel[i], vsel[pos]);
     }
     printv(vsel);
 
@@ -118,6 +193,10 @@ int main()
     insertion(v);
     cout << "\n\nPor burbuja:";
     bubble(v);
+    cout << "\n\nPor shell sort:";
+    shellSort(v);
+    cout << "\n\nPor quick sort:";
+    quickSort(v);
     cout << endl;
     return 0;
 }
