@@ -18,6 +18,8 @@
 #include <iostream>
 
 using namespace std;
+int howmuch(double n);
+double mintohours(double n, double x);
 
 // Calcula el monto a partir de la cantidad de horas estacionadas
 int howmuch(double n){

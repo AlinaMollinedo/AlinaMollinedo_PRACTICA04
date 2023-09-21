@@ -20,6 +20,7 @@
 #include <iostream>
 
 using namespace std;
+int calctotal(int n, int m);
 
 // Calcula el total ganado por el trabajador
 int calctotal(int n, int m){

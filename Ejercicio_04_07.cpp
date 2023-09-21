@@ -22,6 +22,7 @@
 #include <iostream>
 
 using namespace std;
+double increment(int n);
 
 // Calcula el incremento a partir del salario ingresado
 double increment(int n){

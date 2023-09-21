@@ -14,6 +14,7 @@
 #include <iostream>
 
 using namespace std;
+int MCD(int a, int b);
 
 // Calcula el MCD utilizando el algoritmo de Euclides
 int MCD(int a, int b){

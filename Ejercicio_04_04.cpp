@@ -17,6 +17,8 @@
 
 using namespace std;
 int n;
+double suma(int *grades);
+void input(int *grades);
 
 // Suma las notas ingresadas
 double suma(int *grades){

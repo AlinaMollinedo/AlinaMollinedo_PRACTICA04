@@ -17,6 +17,9 @@
 #include <string>
 
 using namespace std;
+double weightAv(Person *n);
+double heightAv(Person *n);
+int youngest(Person *n);
 
 // Estructura para almacenar los datos de cada persona
 struct Person{

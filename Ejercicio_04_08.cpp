@@ -19,6 +19,7 @@
 #include <iostream>
 
 using namespace std;
+double discount(int n);
 
 // Calcula el descuento a partir de la cantidad de computadoras
 double discount(int n){
